@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleCellClick(e) {
         const index = parseInt(e.target.getAttribute('data-index'));
 
-        if (gameState[index] !== '' || !gameActive) return;
+        // VALIDASI: Hanya boleh klik jika cell kosong, game aktif, dan GILIRAN manusia
+        if (gameState[index] !== '' || !gameActive || currentPlayer !== humanPlayer) return;
 
         // Human Turn
         makeMove(index, humanPlayer);
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // AI Turn
-        currentPlayer = aiPlayer;
+        currentPlayer = aiPlayer; // Ganti giliran agar user tidak bisa klik lagi
         status.innerText = "AI Thinking...";
         setTimeout(aiMove, 500); // Delay biar natural
     }
